@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EasyPaisa - Login</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+  body { 
+    background: linear-gradient(135deg, #00b140 0%, #008a30 100%); 
+    height: 100vh; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+  }
+  .login-box {
+    background: white;
+    width: 90%;
+    max-width: 380px;
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+  .logo { 
+    color: #00b140; 
+    font-size: 28px; 
+    font-weight: bold; 
+    margin-bottom: 5px;
+  }
+  .subtitle { color: #666; font-size: 14px; margin-bottom: 20px; }
+  .input-group { margin-bottom: 15px; text-align: left; }
+  .input-group label { font-size: 13px; color: #333; font-weight: 600; }
+  .input-group input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    outline: none;
+  }
+  .input-group input:focus { border-color: #00b140; }
+  .btn {
+    width: 100%;
+    padding: 12px;
+    background: #00b140;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  .btn:hover { background: #008a30; }
+  .links { margin-top: 15px; font-size: 13px; }
+  .links a { color: #00b140; text-decoration: none; }
+  .footer { margin-top: 20px; font-size: 11px; color: #999; }
+</style>
+</head>
+<body>
+
+<div class="login-box">
+<div class="logo">easy<span style="color:#333;">paisa</span></div>
+<p class="subtitle">ZAMAN SONS Shopping Mall</p>
+
+<form onsubmit="login(event)">
+<div class="input-group">
+<label>User Name</label>
+<input type="text" id="user" placeholder="User NAme" required>
+</div>
+<div class="input-group">
+<label>Password</label>
+<input type="password" id="pass" placeholder="Enter Password" required>
+</div>
+<button type="submit" class="btn">Login</button>
+</form>
+
+<div class="links">
+</div>
+<div class="footer">2026 ZAMAN SONS | EasyPaisa dESigN_bY: ZOYA_X</div>
+</div>
+
+<script>
+function login(e){
+e.preventDefault();
+  let user = document.getElementById("user").value;
+  let pass = document.getElementById("pass").value;
+
+  // Demo check - iskoapne system se connect karna
+  if(user == "easypaisa" && pass == "easypaisa"){
+window.location = "dashboard.html"; // slip wala page yahanlagana
+  } else {
+    alert("Invalid Mobile or Password");
+  }
+}
+</script>
+
+</body>
+</html>

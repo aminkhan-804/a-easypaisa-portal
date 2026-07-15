@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>View History - ZAMAN SONS</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+  body { background: #f4f6f9; padding: 20px; }
+
+  .header {
+    background: linear-gradient(90deg, #00b140 0%, #008a30 100%);
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    overflow-x: auto;
+  }
+
+  .top-bar {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    background: #00b140;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .btn:hover { background: #008a30; }
+  .btn.red { background: #dc3545; }
+  .btn.red:hover { background: #b02a37; }
+  .btn.grey { background: #6c757d; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 13px;
+  }
+th {
+    background: #00b140;
+    color: white;
+  }
+tr:nth-child(even) { background: #f9f9f9; }
+  .total-row { font-weight: bold; background: #e8f5e9 !important; }
+
+  @media print {
+    body * { visibility: hidden; }
+    .container, .container * { visibility: visible; }
+    .container { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; }
+    .top-bar { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+<div class="header">
+<h2>EASYPAISA - TRANSACTION HISTORY</h2>
+<p>ZAMAN SONS Shopping Mall</p>
+</div>
+
+<div class="top-bar">
+<button class="btn" onclick="savePDF()">Save AS PDF</button>
+<button class="btn red" onclick="clearHistory()">Clear All</button>
+<button class="btn grey" onclick="goDashboard()">Back to Dashboard</button>
+</div>
+
+<table id="historyTable">
+<thead>
+<tr>
+<th>Slip NO</th>
+<th>Date & Time</th>
+<th>To</th>
+<th>By</th>
+<th>POS NO</th>
+<th>Jazz Cash</th>
+<th>Amount</th>
+</tr>
+</thead>
+<tbody id="historyBody">
+<!-- Data yahanayega -->
+</tbody>
+<tfoot id="totalFooter">
+<!-- Total yahanayega -->
+</tfoot>
+</table>
+</div>
+
+<script>
+function loadHistory(){
+  let history = JSON.parse(localStorage.getItem("easypaisaHistory")) || [];
+  let tbody = document.getElementById("historyBody");
+  let total = 0;
+
+  if(history.length === 0){
+tbody.innerHTML = `<tr><td colspan="7">No transactions found</td></tr>`;
+    return;
+  }
+
+tbody.innerHTML = "";
+history.forEach(item => {
+    total += parseFloat(item.amount);
+tbody.innerHTML += `
+<tr>
+<td>${item.slipNo}</td>
+<td>${item.date}</td>
+<td>${item.to}</td>
+<td>${item.by}</td>
+<td>${item.pos}</td>
+<td>${item.jazz}</td>
+<td>${item.amount}</td>
+</tr>
+    `;
+  });
+
+document.getElementById("totalFooter").innerHTML = `
+<tr class="total-row">
+<td colspan="6">TOTAL AMOUNT</td>
+<td>${total}</td>
+</tr>
+  `;
+}
+
+function clearHistory(){
+  if(confirm("Kya aap sab history delete karnachahtehain?")){
+localStorage.removeItem("easypaisaHistory");
+localStorage.setItem("slipCounter", 0);
+loadHistory();
+    alert("History Clear ho gayi!");
+  }
+}
+
+function goDashboard(){
+window.location = "dashboard.html";
+}
+
+// Page load hote hi data load karo
+loadHistory();
+</script>
+
+</body>
+</html>
